@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-// use gotcha_plugin::GotchaState;
+// use crate::flow::GameState;
 
 pub struct CameraPlugin;
 
@@ -8,7 +8,7 @@ impl Plugin for CameraPlugin {
         app.add_systems(Startup, spawn_camera);
         // app.add_systems(
         //     Update,
-        //     (move_camera, rotate_camera).run_if(in_state(GotchaState::Gameplay)),
+        //     (move_camera, rotate_camera).run_if(in_state(GameState::Gameplay)),
         // );
     }
 }

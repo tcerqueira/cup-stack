@@ -1,9 +1,9 @@
+use crate::flow::{AttemptCount, GameState, GameplayAttempt};
 use bevy::{
     color::palettes::css::{BLUE, GREEN, RED},
     prelude::*,
 };
 use bevy_rapier3d::prelude::*;
-use gotcha_plugin::{AttemptCount, GameplayAttempt, GotchaState};
 
 use crate::{cup::*, throwable::ThrowablesLeftCount};
 
@@ -15,17 +15,17 @@ impl Plugin for GamePlugin {
         app.add_systems(
             PreUpdate,
             check_game_over.run_if(not(
-                in_state(GotchaState::TryAgain).or(in_state(GotchaState::GameOver))
+                in_state(GameState::TryAgain).or(in_state(GameState::GameOver))
             )),
         );
         app.add_systems(
-            OnEnter(GotchaState::Gameplay),
+            OnEnter(GameState::Gameplay),
             (
                 setup_entities.run_if(not(is_first_attempt)),
                 setup_throwables_left,
             ),
         );
-        app.add_systems(OnExit(GotchaState::TryAgain), despawn_entities);
+        app.add_systems(OnExit(GameState::TryAgain), despawn_entities);
     }
 }
 

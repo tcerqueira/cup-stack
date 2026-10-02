@@ -1776,7 +1776,6 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "bevy_rapier3d",
- "gotcha-plugin",
  "rust-fsm",
 ]
 
@@ -2252,17 +2251,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2c4ee00b289aba7a9e5306d57c2d05499b2e5dc427f84ac708bd2c090212cf3e"
 dependencies = [
  "gl_generator",
-]
-
-[[package]]
-name = "gotcha-plugin"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "js-sys",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
 ]
 
 [[package]]

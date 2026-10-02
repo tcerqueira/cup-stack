@@ -1,5 +1,5 @@
 [workspace]
-members = ["cup-stack", "gotcha-plugin"]
+members = ["cup-stack"]
 resolver = "2"
 
 # Enable a small amount of optimization in the dev profile.

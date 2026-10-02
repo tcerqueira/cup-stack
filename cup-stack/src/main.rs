@@ -3,14 +3,15 @@ use bevy_rapier3d::prelude::*;
 
 use camera::*;
 use cup::*;
+use flow::FlowPlugin;
 use game::*;
-use gotcha_plugin::GotchaPlugin;
 use input::*;
 use throwable::*;
 use ui::*;
 
 mod camera;
 mod cup;
+mod flow;
 mod game;
 mod input;
 mod throwable;
@@ -30,7 +31,7 @@ fn main() {
             RapierPhysicsPlugin::<NoUserData>::default(),
             // RapierDebugRenderPlugin::default(),
         ))
-        .add_plugins(GotchaPlugin)
+        .add_plugins(FlowPlugin)
         .add_plugins((
             UiPlugin,
             GamePlugin,

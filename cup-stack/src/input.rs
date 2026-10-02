@@ -1,6 +1,6 @@
+use crate::flow::GameState;
 use bevy::input::touch::TouchPhase;
 use bevy::{input::InputSystem, prelude::*, window::PrimaryWindow};
-use gotcha_plugin::GotchaState;
 use rust_fsm::{StateMachine, StateMachineImpl, TransitionImpossibleError};
 
 pub struct ThrowInputPlugin;
@@ -9,16 +9,16 @@ impl Plugin for ThrowInputPlugin {
     fn build(&self, app: &mut App) {
         app.add_event::<ThrowAction>();
         app.init_resource::<DragStateMachine>();
-        // app.add_systems(OnEnter(GotchaState::Gameplay), start_debounce_timer);
+        // app.add_systems(OnEnter(GameState::Gameplay), start_debounce_timer);
         app.add_systems(
             PreUpdate,
             (mouse_input_system, touch_input_system)
-                .run_if(in_state(GotchaState::Gameplay))
+                .run_if(in_state(GameState::Gameplay))
                 .after(InputSystem),
         );
         // app.add_systems(
         //     Update,
-        //     tick_debounce_timer.run_if(in_state(GotchaState::Gameplay)),
+        //     tick_debounce_timer.run_if(in_state(GameState::Gameplay)),
         // );
     }
 }

@@ -1,22 +1,22 @@
-use bevy::{prelude::*, ui::UiSystem};
+use bevy::ui::UiSystem;
 
 use super::*;
 
-pub struct UiPlugin;
+pub struct FlowUiPlugin;
 
-impl Plugin for UiPlugin {
+impl Plugin for FlowUiPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(
             PreUpdate,
             try_again_action
                 .after(UiSystem::Focus)
-                .run_if(in_state(GotchaState::TryAgain)),
+                .run_if(in_state(GameState::TryAgain)),
         );
-        app.add_systems(OnEnter(GotchaState::Welcome), setup_welcome_ui);
-        app.add_systems(OnExit(GotchaState::Welcome), destroy_welcome_ui);
-        app.add_systems(OnEnter(GotchaState::TryAgain), setup_try_again_ui);
-        app.add_systems(OnExit(GotchaState::TryAgain), destroy_try_again_ui);
-        app.add_systems(OnEnter(GotchaState::GameOver), setup_gameover_ui);
+        app.add_systems(OnEnter(GameState::Welcome), setup_welcome_ui);
+        app.add_systems(OnExit(GameState::Welcome), destroy_welcome_ui);
+        app.add_systems(OnEnter(GameState::TryAgain), setup_try_again_ui);
+        app.add_systems(OnExit(GameState::TryAgain), destroy_try_again_ui);
+        app.add_systems(OnEnter(GameState::GameOver), setup_gameover_ui);
     }
 }
 
@@ -108,11 +108,11 @@ fn try_again_action(
     mut button: Option<
         Single<(&Interaction, &mut TextColor), (With<TryAgainButton>, Changed<Interaction>)>,
     >,
-    mut gotcha_state: ResMut<NextState<GotchaState>>,
+    mut game_state: ResMut<NextState<GameState>>,
     debounce_gameplay_timer: Option<Res<GameplayDebounceTimer>>,
 ) {
     if debounce_gameplay_timer.is_some_and(|timer| timer.0.finished()) {
-        gotcha_state.set(GotchaState::Gameplay);
+        game_state.set(GameState::Gameplay);
     }
     let Some((interaction, text_color)) = button.as_deref_mut() else {
         return;

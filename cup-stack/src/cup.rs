@@ -1,6 +1,6 @@
+use crate::flow::GameState;
 use bevy::prelude::*;
 use bevy_rapier3d::prelude::*;
-use gotcha_plugin::GotchaState;
 
 use crate::game::TABLE_POS;
 
@@ -16,7 +16,7 @@ impl Plugin for CupsPlugin {
                 // debug_targets_left,
             )
                 .chain()
-                .run_if(in_state(GotchaState::Gameplay)),
+                .run_if(in_state(GameState::Gameplay)),
         );
     }
 }
