@@ -1,21 +1,5 @@
 use bevy::prelude::*;
-use bevy_rapier3d::prelude::*;
-
-use camera::*;
-use cup::*;
-use flow::FlowPlugin;
-use game::*;
-use input::*;
-use throwable::*;
-use ui::*;
-
-mod camera;
-mod cup;
-mod flow;
-mod game;
-mod input;
-mod throwable;
-mod ui;
+use cup_stack::CupStackPlugin;
 
 fn main() {
     App::new()
@@ -27,18 +11,6 @@ fn main() {
             }),
             ..default()
         }))
-        .add_plugins((
-            RapierPhysicsPlugin::<NoUserData>::default(),
-            // RapierDebugRenderPlugin::default(),
-        ))
-        .add_plugins(FlowPlugin)
-        .add_plugins((
-            UiPlugin,
-            GamePlugin,
-            CameraPlugin,
-            CupsPlugin,
-            ThrowInputPlugin,
-            ThrowablePlugin,
-        ))
+        .add_plugins(CupStackPlugin)
         .run();
 }

@@ -4,15 +4,33 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bevy = { version = "0.15", features = ["dynamic_linking"] }
-bevy_rapier3d = { version = "0.29", features = [
+# Only what the game uses: the defaults (audio, glTF, scenes, gamepads, image
+# formats…) roughly double the wasm the web build ships.
+bevy = { version = "0.15", default-features = false, features = [
+    "bevy_core_pipeline",
+    "bevy_gizmos",
+    "bevy_pbr",
+    "bevy_render",
+    "bevy_state",
+    "bevy_text",
+    "bevy_ui",
+    "bevy_window",
+    "bevy_winit",
+    "default_font",
+    "multi_threaded",
+    "tonemapping_luts",
+    "webgl2",
+    "x11",
+] }
+bevy_rapier3d = { version = "0.29", default-features = false, features = [
+    "dim3",
     "simd-stable",
-    "debug-render-3d",
 ] }
 rust-fsm = "0.7"
 
-[target.'cfg(target_arch = "wasm32")'.dependencies]
-bevy = { version = "0.15" }
+[features]
+# Faster native dev builds; opt-in so it never leaks into consumers of the library.
+dynamic_linking = ["bevy/dynamic_linking"]
 
 # Enable a small amount of optimization in the dev profile.
 [profile.dev]
